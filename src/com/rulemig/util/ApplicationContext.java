@@ -27,13 +27,16 @@ public class ApplicationContext {
 		 private static final ApplicationContext INSTANCE = new ApplicationContext();  
 	}
 	
-	public void prepareControllerAnnotationObject(String basePackage) throws RuleMigException {
+	public void prepareControllerAnnotationObject(String basePackage) throws Exception {
+		String errorlog = "";
 		Reflections reflector = new Reflections(basePackage);
 		Set<Class<?>> set = reflector.getTypesAnnotatedWith(Controller.class);
 		for (Class<?> clazz : set) {
 			String key = clazz.getAnnotation(Controller.class).url();
 			if (ApplicationConstants.EMPTY_URL.equals(key)) {
-				throw new RuleMigException(ErrorCodes.FAIL_APP_START, "class not set url"); 
+				errorlog = "class not set url";
+				logger.error(errorlog);
+				throw new Exception(errorlog); 
 			}
 			
 			if (!key.endsWith(".do")) {
@@ -41,14 +44,17 @@ public class ApplicationContext {
 			}
 			
 			if (!ControllerAdapter.class.equals(clazz.getSuperclass())) {
-				throw new RuleMigException(ErrorCodes.FAIL_APP_START, "super class must Adapter");
+				errorlog = "super class must Adapter";
+				logger.error(errorlog);
+				throw new Exception(errorlog);
 			}
 			
 			try {
 				ControllerAdapter newInstance = (ControllerAdapter)clazz.newInstance();
 				controllerTable.put(key, newInstance);
 			} catch (InstantiationException | IllegalAccessException e) {
-				throw new RuleMigException(ErrorCodes.FAIL_APP_START, e.getMessage(), e);
+				logger.error(e.getMessage(), e);
+				throw e;
 			}	
 		}
 	}
