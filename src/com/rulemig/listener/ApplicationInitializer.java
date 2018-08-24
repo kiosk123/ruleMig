@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rulemig.util.ApplicationContext;
+import com.rulemig.util.MessageUtil;
 
 
 
@@ -19,12 +20,28 @@ public class ApplicationInitializer implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		logger.info("################ application start ########################");
+		logger.info("################ initialize MessageUtil");
+		
+		String rootPath = sce.getServletContext().getRealPath("/WEB-INF");
+		try {
+			MessageUtil.init(rootPath + "/message.properties");
+			logger.info("################ MessageUtil init success");
+		} catch (Exception e) {
+			logger.error("############### MessageUtil init failed", e);
+			logger.warn("----------------- please shutdown application");
+			throw new RuntimeException(e);
+		}
+		
+		logger.info("################ initialize ApplicationContext");
 		ApplicationContext context = ApplicationContext.getInstance();
 		try {
 			context.prepareControllerAnnotationObject("com.rulemig.controller");
 		} catch (Exception e) {
+			logger.error("################ ApplicationContext init failed", e);
+			logger.warn("----------------- please shutdown application");
 			throw new RuntimeException(e);
 		}
+		logger.info("################ application init finished");
 	}
 	
 	@Override
