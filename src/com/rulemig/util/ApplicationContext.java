@@ -49,8 +49,7 @@ public class ApplicationContext {
 				controllerTable.put(key, newInstance);
 			} catch (InstantiationException | IllegalAccessException e) {
 				throw new RuleMigException(ErrorCodes.FAIL_APP_START, e.getMessage(), e);
-			}
-			
+			}	
 		}
 	}
 	
