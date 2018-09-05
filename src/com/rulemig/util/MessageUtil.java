@@ -41,10 +41,15 @@ public class MessageUtil {
 	
 	public static String getMessage(String key, String ... param) {
 		String message = messageProps.getProperty(key);
+		String ret = "";
 		if (message != null) {
 			MessageFormat mf = new MessageFormat(message);
-			message = mf.format(param);
+			try {
+				ret = mf.format(param);
+			} catch(IllegalArgumentException e) {
+				ret = message;
+			}
 		}
-		return message;
+		return ret;
 	}
 }
