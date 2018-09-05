@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import com.rulemig.anno.Controller;
 import com.rulemig.controller.ControllerAdapter;
-import com.rulemig.error.ErrorCodes;
-import com.rulemig.error.RuleMigException;
 
 public class ApplicationContext {
 	
