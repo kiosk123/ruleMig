@@ -23,7 +23,6 @@ public class DispatcherServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//TODO 로그인 여부 처리...
 		String method = req.getMethod();
-		logger.info("[" + method + "] " + req.getServletPath());
 		ControllerAdapter controller = context.getController(req.getServletPath());
 		if (controller == null) {
 			resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
