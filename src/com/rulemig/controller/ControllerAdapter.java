@@ -9,7 +9,7 @@ public abstract class ControllerAdapter implements ControllerFacade {
 	
 	@Override
 	public void get(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		resp.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	}
 	@Override
 	public void post(HttpServletRequest req, HttpServletResponse resp) throws Exception {
