@@ -28,8 +28,8 @@ public class ApplicationInitializer implements ServletContextListener {
 			logger.info("################ MessageUtil init success");
 		} catch (Exception e) {
 			logger.error("############### MessageUtil init failed", e);
-			logger.warn("----------------- please shutdown application");
-			throw new RuntimeException(e);
+			logger.error("application shutdown");
+			System.exit(1);
 		}
 		
 		logger.info("################ initialize ApplicationContext");
@@ -38,8 +38,8 @@ public class ApplicationInitializer implements ServletContextListener {
 			context.prepareControllerAnnotationObject("com.rulemig.controller");
 		} catch (Exception e) {
 			logger.error("################ ApplicationContext init failed", e);
-			logger.warn("----------------- please shutdown application");
-			throw new RuntimeException(e);
+			logger.error("application shutdown");
+			System.exit(1);
 		}
 		logger.info("################ application init finished");
 	}
