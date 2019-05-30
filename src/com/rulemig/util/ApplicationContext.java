@@ -42,7 +42,7 @@ public class ApplicationContext {
 			}
 			
 			if (!ControllerAdapter.class.equals(clazz.getSuperclass())) {
-				errorlog = "super class must Adapter";
+				errorlog = "super class must be ControllerAdapter";
 				logger.error(errorlog);
 				throw new Exception(errorlog);
 			}
