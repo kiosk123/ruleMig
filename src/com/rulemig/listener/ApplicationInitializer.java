@@ -38,7 +38,7 @@ public class ApplicationInitializer implements ServletContextListener {
 			context.prepareControllerAnnotationObject("com.rulemig.controller");
 		} catch (Exception e) {
 			logger.error("################ ApplicationContext init failed", e);
-			logger.error("---------------- application shutdown");
+			logger.error("---------------- application shutdown by Error");
 			System.exit(1);
 		}
 		logger.info("################ application init finished");
