@@ -48,7 +48,7 @@ public class ApplicationContext {
 			}
 			
 			try {
-				ControllerAdapter newInstance = (ControllerAdapter)clazz.newInstance();
+				ControllerAdapter newInstance = (ControllerAdapter)clazz.getDeclaredConstructor().newInstance();
 				controllerTable.put(key, newInstance);
 			} catch (InstantiationException | IllegalAccessException e) {
 				logger.error(e.getMessage(), e);
